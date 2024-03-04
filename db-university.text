@@ -1,0 +1,102 @@
+QUERY CON SELECT
+
+1.
+
+SELECT *
+FROM `students`
+WHERE YEAR(date_of_birth) = 1990;
+
+///////////////////////////////////////////////
+
+2.
+
+SELECT *
+FROM `courses`
+WHERE `cfu` > 10;
+
+////////////////////////////////////////////////
+
+3.
+
+SELECT *
+FROM `students`
+WHERE YEAR(date_of_birth) < 1994
+ORDER BY YEAR(date_of_birth) DESC;
+
+////////////////////////////////////////////////
+
+4.
+
+SELECT *
+FROM `courses`
+WHERE `period` = "I semestre"
+AND `year`= 1;
+
+////////////////////////////////////////////////
+
+5.
+
+SELECT *
+FROM `exams`
+WHERE `date` = "2020-06-20"
+AND `hour`>= "14:00:00";
+
+/////////////////////////////////////////////////
+
+6.
+
+SELECT *
+FROM `degrees`
+WHERE `level` = "magistrale";
+
+//////////////////////////////////////////////////
+
+7.
+
+SELECT *
+FROM `departments`;
+
+//////////////////////////////////////////////////
+
+8.
+
+SELECT *
+FROM `teachers`
+WHERE `phone` IS null;
+
+//////////////////////////////////////////////////
+
+
+QUERY CON GROUP
+
+1.
+
+SELECT COUNT(id) AS `Numero_studenti`, YEAR(`enrolment_date`) AS `Anno_iscrizione`
+FROM `students`
+GROUP BY Anno_iscrizione;
+
+///////////////////////////////////////////////////
+
+2.
+
+SELECT COUNT(id) AS `Numero_insegnanti`, `office_address`
+FROM `teachers`
+GROUP BY `office_address`;
+
+////////////////////////////////////////////////////
+
+3.
+
+SELECT AVG(vote) AS `Media_voti`, `exam_id`
+FROM `exam_student`
+GROUP BY `exam_id`;
+
+/////////////////////////////////////////////////////
+
+4.
+
+SELECT COUNT(id) AS `Corsi_di_laurea`, `department_id`
+FROM `degrees`
+GROUP BY `department_id`;
+
+
