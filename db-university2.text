@@ -1,0 +1,87 @@
+1.
+
+SELECT *
+FROM `students`
+JOIN `degrees`
+ON `students`.`degree_id` = `degrees`.`id`
+WHERE `degrees`.`name` = "Corso di Laurea in Economia";
+
+/////////////////////////////////////////////////////////
+
+2.
+
+SELECT *
+FROM `degrees`
+JOIN `departments`
+ON `degrees`.`department_id`= `departments`.`id`
+WHERE `degrees`.`level`= "magistrale"
+AND `departments`.`name`= "Dipartimento di Neuroscienze";
+
+//////////////////////////////////////////////////////////
+
+3.
+
+SELECT *
+FROM `courses`
+JOIN `course_teacher`
+ON `courses`.`id`= `course_teacher`.`course_id`
+JOIN `teachers`
+ON `course_teacher`.`teacher_id`= `teachers`.`id`
+WHERE `teachers`.`id` = 44;
+
+///////////////////////////////////////////////////////////
+
+4.
+
+SELECT *
+FROM `students`
+JOIN `degrees`
+ON `students`.`degree_id` = `degrees`.`id`
+JOIN `departments`
+ON `degrees`.`department_id` = `departments`.`id`
+ORDER BY `students`.`surname` ASC, `students`.`name` ASC;
+
+///////////////////////////////////////////////////////////
+
+5.
+
+SELECT `degrees`.`name` AS `Corso_di_laurea`, `courses`.`name` AS `Nome_corso`, `teachers`.`name` AS `Nome_insegnante`, `teachers`.`surname` AS `Cognome_insegnante`
+FROM `degrees`
+JOIN `courses`
+ON `degrees`.`id` = `courses`.`degree_id`
+JOIN `course_teacher`
+ON `courses`.`id`= `course_teacher`.`course_id`
+JOIN `teachers`
+ON `course_teacher`.`teacher_id`= `teachers`.`id`;
+
+////////////////////////////////////////////////////////////
+
+6.
+
+SELECT DISTINCT `teachers`.`name`,`teachers`.`surname`, `departments`.`name`
+FROM `departments`
+JOIN `degrees`
+ON `departments`.`id` = `degrees`.`department_id`
+JOIN `courses`
+ON `degrees`.`id` = `courses`.`degree_id`
+JOIN `course_teacher`
+ON `courses`.`id`= `course_teacher`.`course_id`
+JOIN `teachers`
+ON `course_teacher`.`teacher_id`= `teachers`.`id`
+WHERE `departments`.`name` = "Dipartimento di Matematica";
+
+////////////////////////////////////////////////////////////
+
+7.
+
+SELECT COUNT(`courses`.`name`) AS `numero_tentativi`,`courses`.`name` AS `Nome_corso`,`students`.`name`, `students`.`surname`, MAX(`exam_student`.`vote`) AS `voto_massimo`
+FROM `students`
+JOIN `exam_student`
+ON `students`.`id` = `exam_student`.`student_id`
+JOIN `exams`
+ON `exam_student`.`exam_id` = `exams`.`id`
+JOIN `courses`
+ON `exams`.`course_id` = `courses`.`id`
+WHERE `exam_student`.`vote` >= 18
+GROUP BY `students`.`id`, `students`.`name`, `students`.`surname`, `courses`.`name`;
+
